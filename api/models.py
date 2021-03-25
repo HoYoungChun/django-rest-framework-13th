@@ -21,7 +21,7 @@ class User(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name="제목")
     content = models.TextField(verbose_name="소개")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자", related_name="author")
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="업로드일자")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="업데이트일자")
@@ -31,25 +31,25 @@ class Post(models.Model):
 
 #Post와 연결된 사진이나 비디오
 class File(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE) #연결된 Post
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name="연결된 게시글", related_name="post") #연결된 Post
     # 저장경로 : MEDIA_ROOT/post/ 경로에 저장
-    file = models.FileField(blank=True, upload_to="post/") #사진이나 동영상
+    file = models.FileField(blank=True, upload_to="post/", verbose_name="사진or동영상") #사진이나 동영상
 
     def __str__(self):
         return self.post.title + '의 ' + str(self.pk) +'번째 파일'
 
 #팔로잉 관계
 class Follow(models.Model):
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following_user")
-    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed_user")
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following", verbose_name="팔로우하는 사람")
+    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed", verbose_name="팔로우된 사람")
 
     def __str__(self):
         return self.following.nickname + ' -> ' + self.followed.nickname
 
 #좋아요
 class Heart(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE) #연결된 Post
-    user = models.ForeignKey(User, on_delete=models.CASCADE) #좋아요 누른 사용자
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post", verbose_name="좋아요단 게시글") #연결된 Post
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user", verbose_name="좋아요단 사용자") #좋아요 누른 사용자
 
     def __str__(self):
         return self.user.nickname + ' ♥ ' + self.post.title
