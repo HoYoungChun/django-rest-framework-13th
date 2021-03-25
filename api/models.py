@@ -39,3 +39,8 @@ class File(models.Model):
 class Follow(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following_user")
     followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed_user")
+
+#좋아요
+class Heart(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE) #연결된 Post
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #좋아요 누른 사용자
