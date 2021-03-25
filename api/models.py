@@ -15,7 +15,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="업데이트일자")
 
     def __str__(self):
-        return str(self.pk) +' '+self.nickname #표시할때 'pk 닉네임'으로
+        return self.nickname #표시할때 닉네임으로
 
 #게시글
 class Post(models.Model):
@@ -27,7 +27,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="업데이트일자")
 
     def __str__(self):
-        return str(self.pk) +' '+self.title #표시할때 'pk 제목'으로
+        return self.title #표시할때 제목으로
 
 #Post와 연결된 사진이나 비디오
 class File(models.Model):
@@ -35,12 +35,21 @@ class File(models.Model):
     # 저장경로 : MEDIA_ROOT/post/ 경로에 저장
     file = models.FileField(blank=True, upload_to="post/") #사진이나 동영상
 
+    def __str__(self):
+        return self.post + '의' + str(self.pk) +'번째 파일'
+
 #팔로잉 관계
 class Follow(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following_user")
     followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed_user")
 
+    def __str__(self):
+        return self.following + '->' + self.followed
+
 #좋아요
 class Heart(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE) #연결된 Post
     user = models.ForeignKey(User, on_delete=models.CASCADE) #좋아요 누른 사용자
+
+    def __str__(self):
+        return self.user + '♥' + self.post
