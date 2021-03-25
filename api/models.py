@@ -1,5 +1,6 @@
 from django.db import models
 
+#사용자
 class User(models.Model):
     # 닉네임, 이메일, 전화번호로 로그인하기 때문에 Unique해야
     nickname = models.CharField(max_length=100, verbose_name="닉네임", unique=True)
@@ -16,7 +17,7 @@ class User(models.Model):
     def __str__(self):
         return str(self.pk) +' '+self.nickname #표시할때 'pk 닉네임'으로
 
-
+#게시글
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name="제목")
     content = models.TextField(verbose_name="소개")
@@ -28,7 +29,13 @@ class Post(models.Model):
     def __str__(self):
         return str(self.pk) +' '+self.title #표시할때 'pk 제목'으로
 
+#Post와 연결된 사진이나 비디오
 class File(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE) #연결된 Post
     # 저장경로 : MEDIA_ROOT/post/ 경로에 저장
     file = models.FileField(blank=True, upload_to="post/") #사진이나 동영상
+
+#팔로잉 관계
+class Follow(models.Model):
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following_user")
+    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed_user")
