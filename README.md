@@ -12,6 +12,7 @@
 게시글 : 사진,동영상 = 1 : N<br>
 (좋아요) 사용자 : 게시글 = N : M<br>
 (팔로우관계) 사용자 : 사용자 = N : M<br>
+![erd](https://user-images.githubusercontent.com/63651422/112450212-8112c080-8d97-11eb-867a-c34842a055c8.png)
 
 ### ORM 적용해보기
 shell에서 작성한 코드와 그 결과를 보여주세요!
