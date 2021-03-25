@@ -14,11 +14,11 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="업데이트일자")
 
     def __str__(self):
-        return str(self.pk) +' '+self.nickname
+        return str(self.pk) +' '+self.nickname #표시할때 'pk 닉네임'으로
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, verbose_name="제목")
     content = models.TextField(verbose_name="소개")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
 
@@ -26,4 +26,9 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="업데이트일자")
 
     def __str__(self):
-        return str(self.pk) +' '+self.title
+        return str(self.pk) +' '+self.title #표시할때 'pk 제목'으로
+
+class File(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE) #연결된 Post
+    # 저장경로 : MEDIA_ROOT/post/ 경로에 저장
+    file = models.FileField(blank=True, upload_to="post/") #사진이나 동영상
