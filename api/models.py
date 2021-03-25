@@ -36,7 +36,7 @@ class File(models.Model):
     file = models.FileField(blank=True, upload_to="post/") #사진이나 동영상
 
     def __str__(self):
-        return self.post + '의' + str(self.pk) +'번째 파일'
+        return self.post.title + '의 ' + str(self.pk) +'번째 파일'
 
 #팔로잉 관계
 class Follow(models.Model):
@@ -44,7 +44,7 @@ class Follow(models.Model):
     followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed_user")
 
     def __str__(self):
-        return self.following + '->' + self.followed
+        return self.following.nickname + ' -> ' + self.followed.nickname
 
 #좋아요
 class Heart(models.Model):
@@ -52,4 +52,4 @@ class Heart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) #좋아요 누른 사용자
 
     def __str__(self):
-        return self.user + '♥' + self.post
+        return self.user.nickname + ' ♥ ' + self.post.title
