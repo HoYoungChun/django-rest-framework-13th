@@ -17,8 +17,53 @@
 ![erd](https://user-images.githubusercontent.com/63651422/112450212-8112c080-8d97-11eb-867a-c34842a055c8.png)
 
 ### ORM 적용해보기
-shell에서 작성한 코드와 그 결과를 보여주세요!<br>
-<br>
+shell에서 작성한 코드와 그 결과를 보여주세요!<br><br>
+
+User 객체 2개 생성
+```python
+python manage.py shell
+>>> from api.models import *
+>>> hy1 = User(nickname="hy1", email="hy@naver.com", phone_number="01011111111", password="1111", username="호영", description="나는호영1")
+>>> hy1.save()
+>>> hy2 = User(nickname="hy2", email="hy2@naver.com", phone_number="01022222222", password="2222", username="호영2", description="나는호영2")
+>>> hy2.save()
+>>> User.objects.all()
+<QuerySet [<User: hy1>, <User: hy2>]>
+```
+
+Follow 객체 1개 생성
+```python
+>>> Follow.objects.create(following=hy1, followed=hy2)
+<Follow: hy1 -> hy2>
+```
+
+Post 객체 1개 생성
+```python
+>>> p1 = Post(title="졸려", content="그냥잘까", author=hy1)
+>>> p1.save()
+>>> Post.objects.all()
+<QuerySet [<Post: 졸려>]>
+```
+
+File 객체 2개 생성
+```python
+>>> File.objects.create(post=p1, file="프사.jpg")
+<File: 졸려의 1번째 파일>
+>>> File.objects.create(post=p1, file="프사sdf.jpg")
+<File: 졸려의 2번째 파일>
+>>> File.objects.all()
+<QuerySet [<File: 졸려의 1번째 파일>, <File: 졸려의 2번째 파일>]>
+```
+
+Heart 객체 2개 생성
+```python
+>>> Heart.objects.create(post=p1, user=hy1)
+<Heart: hy1 ♥ 졸려>
+>>> Heart.objects.create(post=p1, user=hy2)
+<Heart: hy2 ♥ 졸려>
+>>> File.objects.all()
+<QuerySet [<File: 졸려의 1번째 파일>, <File: 졸려의 2번째 파일>]>
+```
 
 ### 간단한 회고
 과제 시 어려웠던 점이나 느낀 점, 좋았던 점 등을 간단히 적어주세요!<br>
