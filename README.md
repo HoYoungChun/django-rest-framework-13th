@@ -65,7 +65,15 @@ Heart 객체 2개 생성
 <QuerySet [<File: 졸려의 1번째 파일>, <File: 졸려의 2번째 파일>]>
 ```
 
+Filter적용
+```python
+>>> User.objects.filter(nickname__contains='2')
+<QuerySet [<User: hy2>]>
+>>> Heart.objects.filter(user=hy1)
+<QuerySet [<Heart: hy1 ♥ 졸려>]>
+```
+
 ### 간단한 회고
 과제 시 어려웠던 점이나 느낀 점, 좋았던 점 등을 간단히 적어주세요!<br>
-<br>
+->실제 프로젝트에서 ERD를 짤때 고민을 정말 많이해서 만들어야겠다는 생각을 했습니다.
 
