@@ -1,6 +1,24 @@
 from rest_framework import serializers
 from .models import *
 
+class HeartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Heart
+        fields = []
+
+class FollowSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Follow
+        fields = []
+
+class FileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = File
+        fields = ['file']
+
 class PostSerializer(serializers.ModelSerializer):
     heart_post = HeartSerializer(many=True, read_only=True)
     file_post = FileSerializer(many=True, read_only=True)
