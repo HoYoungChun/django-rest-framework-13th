@@ -5,19 +5,19 @@ class HeartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Heart
-        fields = []
+        fields = '__all__'
 
 class FollowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Follow
-        fields = []
+        fields = '__all__'
 
 class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = File
-        fields = ['file']
+        fields = '__all__'
 
 class PostSerializer(serializers.ModelSerializer):
     heart_post = HeartSerializer(many=True, read_only=True)
@@ -25,7 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'created_at', 'updated_at']
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     _following = FollowSerializer(many=True, read_only=True)
@@ -35,5 +35,5 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['nickname', 'email', 'phone_number', 'password', 'username', 'description', 'created_at', 'updated_at']
+        fields = '__all__'
 
