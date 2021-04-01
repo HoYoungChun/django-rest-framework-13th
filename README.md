@@ -82,6 +82,34 @@ Filter적용
 ## 3주차 과제 (기한: 4/1 목요일까지)
 ### 모델 선택 및 데이터 삽입
 선택한 모델의 구조와 데이터 삽입 후의 결과화면을 보여주세요!
+```python
+#사용자
+class User(models.Model):
+    # 닉네임, 이메일, 전화번호로 로그인하기 때문에 Unique해야
+    nickname = models.CharField(max_length=100, verbose_name="닉네임", unique=True)
+    email = models.EmailField(max_length=255, verbose_name="이메일", unique=True)
+    phone_number = models.CharField(max_length=100, verbose_name="전화번호", unique=True)
+
+    password = models.CharField(max_length=150, verbose_name="비밀번호", unique=True)
+    username = models.CharField(max_length=150, verbose_name="이름", unique=True)
+    description = models.TextField(verbose_name="소개")
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="가입일자")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="업데이트일자")
+
+    def __str__(self):
+        return self.nickname #표시할때 닉네임으로
+
+#팔로잉 관계
+class Follow(models.Model):
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="_following", verbose_name="팔로우하는 사람")
+    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="_followed", verbose_name="팔로우된 사람")
+
+    def __str__(self):
+        return self.following.nickname + ' -> ' + self.followed.nickname
+```
+![image](https://user-images.githubusercontent.com/63651422/113284715-fdbc1680-9324-11eb-9646-76c0755409ad.png)
+![image](https://user-images.githubusercontent.com/63651422/113284922-4b388380-9325-11eb-87a8-01808cc7fea8.png)
 
 ### 모든 list를 가져오는 API
 API 요청한 URL과 결과 데이터를 코드로 보여주세요!
