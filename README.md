@@ -113,6 +113,33 @@ class Follow(models.Model):
 
 ### 모든 list를 가져오는 API
 API 요청한 URL과 결과 데이터를 코드로 보여주세요!
+```python
+#config/urls.py
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('api.urls')),
+]
+```
+```python
+#api/urls.py
+from django.urls import path
+from api import views
+
+urlpatterns = [
+    path('users/', views.UserList.as_view()),
+    path('posts/', views.PostList.as_view()),
+    path('files/', views.FileList.as_view()),
+    path('follows/', views.FollowList.as_view()),
+    path('hearts/', views.HeartList.as_view()),
+]
+```
+User list 가져오기
+![image](https://user-images.githubusercontent.com/63651422/113285700-38727e80-9326-11eb-9d95-e859a947a2b7.png)
+Follow list 가져오기
+![image](https://user-images.githubusercontent.com/63651422/113285831-5e981e80-9326-11eb-8f69-3256e2f52d83.png)
 
 ### 새로운 데이터를 create하도록 요청하는 API
 요청한 URL 및 Body 데이터의 내용과 create된 결과를 보여주세요!
