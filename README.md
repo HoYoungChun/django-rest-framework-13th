@@ -136,23 +136,23 @@ urlpatterns = [
     path('hearts', views.HeartList.as_view()),
 ]
 ```
-* User list 가져오기
+* User list 가져오기 (url 변경 전)
 ![image](https://user-images.githubusercontent.com/63651422/113285700-38727e80-9326-11eb-9d95-e859a947a2b7.png)
 
-* Follow list 가져오기
+* Follow list 가져오기 (url 변경 전)
 ![image](https://user-images.githubusercontent.com/63651422/113285831-5e981e80-9326-11eb-8f69-3256e2f52d83.png)
 
 ### 새로운 데이터를 create하도록 요청하는 API
 요청한 URL 및 Body 데이터의 내용과 create된 결과를 보여주세요!<br>
 
-* User create
+* User create (url 변경 전)
 ![image](https://user-images.githubusercontent.com/63651422/113286840-b1260a80-9327-11eb-90c5-ed1bb56fa6aa.png)
 
-* Follow create
+* Follow create (url 변경 전)
 ![image](https://user-images.githubusercontent.com/63651422/113287003-eaf71100-9327-11eb-9f48-5e10ea1566b9.png)
 
 ### 공부한 내용 정리
-
+REST API에서 혼동을 주지 않기 위해 URI 경로의 마지막에는 슬래시(/)를 사용하지 않는다는 점을 알게 되었습니다. <br>그리고 related name을 지을 때 역참조를 생각해서 모델이름을 부여하는게 좋다는 점을 배웠습니다.
 
 ### 간단한 회고
-과제 시 어려웠던 점이나 느낀 점, 좋았던 점 등을 간단히 적어주세요!
+처음에 FBV로 하다가, CBV로도 해보면서 이 부분에 대해 정확히 공부를 해야겠다고 생각했습니다. <br>빨리 프론트와 같이 협업하면서 REST API를 사용해보고 싶습니다.
