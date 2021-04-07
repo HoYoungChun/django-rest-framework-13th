@@ -206,7 +206,7 @@ API 요청한 URL과 결과 데이터를 코드로 보여주세요!
     "followed": 1
 }
 ```
-* create된 결과
+* create된 결과<br>
 ![image](https://user-images.githubusercontent.com/63651422/113915989-6837ef80-981a-11eb-8648-42eab40c682f.png)
 
 ### 특정 데이터를 업데이트하는 API
@@ -214,6 +214,12 @@ API 요청한 URL과 결과 데이터를 코드로 보여주세요!
 
 ### 특정 데이터를 삭제하는 API
 요청 URL 및 delete된 결과를 보여주세요!
+* URL
+```python
+127.0.0.1:8000/api/follows/4
+```
+* delete된 결과<br>
+![image](https://user-images.githubusercontent.com/63651422/113920347-9e2ba280-981f-11eb-97b3-af6594f98f65.png)
 
 ### 공부한 내용 정리
 새로 알게된 점, 정리 하고 싶은 개념, 궁금한점 등을 정리해 주세요

@@ -59,6 +59,10 @@ class FollowListOne(APIView):
         follows = Follow.objects.get(pk=pk)
         serializer = FollowSerializer(follows)
         return Response(serializer.data)
+    def delete(self, request, pk, format=None):
+        follows = Follow.objects.get(pk=pk)
+        follows.delete()
+        return Response("delete ok", status=status.HTTP_200_OK)
 
 class HeartList(APIView):
     def get(self, request, format=None):
