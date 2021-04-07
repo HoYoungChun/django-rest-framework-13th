@@ -181,6 +181,18 @@ REST API에서 혼동을 주지 않기 위해 URI 경로의 마지막에는 슬�
 
 ### 특정 데이터를 가져오는 API
 API 요청한 URL과 결과 데이터를 코드로 보여주세요!
+* URL
+```python
+127.0.0.1:8000/api/follows/4
+```
+* 결과 데이터
+```python
+{
+    "id": 4,
+    "following": 2,
+    "followed": 1
+}
+```
 
 ### 새로운 데이터를 생성하는 API
 * URL
