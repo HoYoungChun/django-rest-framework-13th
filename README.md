@@ -158,7 +158,7 @@ REST API에서 혼동을 주지 않기 위해 URI 경로의 마지막에는 슬�
 처음에 FBV로 하다가, CBV로도 해보면서 이 부분에 대해 정확히 공부를 해야겠다고 생각했습니다. <br>빨리 프론트와 같이 협업하면서 REST API를 사용해보고 싶습니다.
 
 ## 4주차 과제 (기한: 4/8 목요일까지)
-### 모든 list를 가져오는 
+### 모든 list를 가져오는 API
 * URL
 ```python
 127.0.0.1:8000/api/follows
@@ -180,7 +180,6 @@ REST API에서 혼동을 주지 않기 위해 URI 경로의 마지막에는 슬�
 ```
 
 ### 특정 데이터를 가져오는 API
-API 요청한 URL과 결과 데이터를 코드로 보여주세요!
 * URL
 ```python
 127.0.0.1:8000/api/follows/4
@@ -207,13 +206,26 @@ API 요청한 URL과 결과 데이터를 코드로 보여주세요!
 }
 ```
 * create된 결과<br>
-![image](https://user-images.githubusercontent.com/63651422/113915989-6837ef80-981a-11eb-8648-42eab40c682f.png)
+![image](https://user-images.githubusercontent.com/63651422/113921579-252d4a80-9821-11eb-8d8c-c289dd984fe3.png)
 
 ### 특정 데이터를 업데이트하는 API
-요청 URL 및 body 데이터의 내용과 update된 결과를 보여주세요!
+* URL
+```python
+127.0.0.1:8000/api/follows/1
+```
+* body 데이터의 내용
+```python
+{
+    "following": 1,
+    "followed": 6
+}
+```
+* update된 결과<br>
+![image](https://user-images.githubusercontent.com/63651422/113921197-a9cb9900-9820-11eb-9cc8-6cb777514f74.png)
+
+
 
 ### 특정 데이터를 삭제하는 API
-요청 URL 및 delete된 결과를 보여주세요!
 * URL
 ```python
 127.0.0.1:8000/api/follows/4
