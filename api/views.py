@@ -4,6 +4,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 class UserList(APIView):
     def get(self, request, format=None):
@@ -56,17 +57,17 @@ class FollowList(APIView):
 #Follow 해당되는 것만 가져온다
 class FollowListOne(APIView):
     def get(self, request, pk, format=None):#불러오기
-        follows = Follow.objects.get(pk=pk)
+        follows = get_object_or_404(Follow, pk=pk)
         serializer = FollowSerializer(follows)
         return Response(serializer.data)
 
     def delete(self, request, pk, format=None):#삭제
-        follows = Follow.objects.get(pk=pk)
+        follows = get_object_or_404(Follow, pk=pk)
         follows.delete()
-        return Response("delete ok", status=status.HTTP_200_OK)
+        return Response("delete ok", status=status.HTTP_204_OK) #상태코드 delete에 맞게
 
     def put(self, request, pk, format=None):#업데이트
-        follows = Follow.objects.get(pk=pk)
+        follows = get_object_or_404(Follow, pk=pk)
         serializer = FollowSerializer(follows, data=request.data)
         if serializer.is_valid():
             serializer.save()
