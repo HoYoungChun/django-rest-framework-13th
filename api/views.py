@@ -18,8 +18,8 @@ class UserFilter(FilterSet):
         fields = ['nickname']
 
     def filter_is_hy1(self, queryset, nickname, value):
-        filtered_queryset = queryset.filter(nickname="hy1")
-        filtered_queryset2 = queryset.filter(~Q(nickname="hy1"))
+        filtered_queryset = queryset.filter(nickname__contains="1")
+        filtered_queryset2 = queryset.filter(~Q(nickname__contains="1"))
         if value == True:
             return filtered_queryset
         else:
