@@ -340,4 +340,7 @@ http://127.0.0.1:8000/api/user/?nickname=2&is_hy1=fasle
 ![image](https://user-images.githubusercontent.com/63651422/118385802-3140cf00-b64d-11eb-96cd-71af6d2da6cc.png)
 
 
-### 과제를 하면서 알게 된 내용
+### 과제를 하면서 알게 된 내용 & 회고
+"http://127.0.0.1:8000/api/user/?is_hy1=false"와 같이 접속했을 때 def filter_is_hy1(self, queryset, name, value):에서 parameter로 name=is_hy1, value=false가 들어갔습니다. 이를 통해 좀더 다채로운 처리가 가능할거 같고, lookup_expr의 다양한 조건을 알아두면 프로젝트할 때 도움이 많이 될 것 같습니다.
+
+from django.db.models import Q를 통해 Q객체를 써서 복잡한 질의문을 처리할 수 있어서, 이를 통해 원하는 질의문을 편하게 작성할 수 있었습니다.
