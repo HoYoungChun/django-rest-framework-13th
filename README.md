@@ -239,5 +239,41 @@ GET, POST, DELETE, PUT 방식에 대해서 알게되었습니다. 이외에도 �
 ### 간단한 회고
 url을 여러가지로 만들지 않고, 하나의 url에서 여러가지 기능들을 처리하는게 정말 편리했습니다. rest api에 대해 더 깊게 공부해야겠다는 생각을 했습니다.
 
-## 4주차 과제 (기한: 5/13 목요일까지)
+## 5주차 과제 (기한: 5/13 목요일까지)
+### 1. Viewset으로 리팩토링하기
+```python
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+class PostViewSet(viewsets.ModelViewSet):
+	serializer_class = PostSerializer
+	queryset = Post.objects.all()
+```
+
+### 2. filter 기능 구현하기
+```python
+class UserFilter(FilterSet):
+    nickname = filters.CharFilter(field_name='nickname', lookup_expr="icontains")
+    is_hy1 = filters.BooleanFilter(method='filter_is_hy1')
+
+    class Meta:
+        model = User
+        fields = ['nickname']
+
+    def filter_is_hy1(self, queryset, name, value):
+        filtered_queryset = queryset.filter(nickname__contains="1")
+        filtered_queryset2 = queryset.filter(~Q(nickname__contains="1"))
+        if value == True:
+            return filtered_queryset
+        else:
+            return filtered_queryset2
+        
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = UserFilter
+```
+
 ### 과제를 하면서 알게 된 내용

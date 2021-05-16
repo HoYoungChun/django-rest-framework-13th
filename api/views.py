@@ -17,7 +17,7 @@ class UserFilter(FilterSet):
         model = User
         fields = ['nickname']
 
-    def filter_is_hy1(self, queryset, nickname, value):
+    def filter_is_hy1(self, queryset, name, value):
         filtered_queryset = queryset.filter(nickname__contains="1")
         filtered_queryset2 = queryset.filter(~Q(nickname__contains="1"))
         if value == True:
