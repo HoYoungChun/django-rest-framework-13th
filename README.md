@@ -275,5 +275,69 @@ class UserViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = UserFilter
 ```
+![image](https://user-images.githubusercontent.com/63651422/118385768-eb840680-b64c-11eb-80ad-fb29ecc0b7de.png)
+```python
+http://127.0.0.1:8000/api/user/?is_hy1=false
+```
+```python
+[
+    {
+        "id": 2,
+        "_following": [],
+        "_followed": [],
+        "_user": [
+            {
+                "id": 2,
+                "post": 1,
+                "user": 2
+            }
+        ],
+        "_author": [],
+        "nickname": "hy2",
+        "email": "hy2@naver.com",
+        "phone_number": "01022222222",
+        "password": "2222",
+        "username": "호영2",
+        "description": "나는호영2",
+        "created_at": "2021-04-01T02:33:34.230805+09:00",
+        "updated_at": "2021-04-01T02:33:34.230805+09:00"
+    },
+    {
+        "id": 6,
+        "_following": [
+            {
+                "id": 7,
+                "following": 6,
+                "followed": 1
+            }
+        ],
+        "_followed": [
+            {
+                "id": 1,
+                "following": 1,
+                "followed": 6
+            }
+        ],
+        "_user": [],
+        "_author": [],
+        "nickname": "hy5",
+        "email": "hy5@naver.com",
+        "phone_number": "01055555555",
+        "password": "5555",
+        "username": "hy5",
+        "description": "hy5",
+        "created_at": "2021-04-08T03:25:17.209385+09:00",
+        "updated_at": "2021-04-08T03:25:17.209385+09:00"
+    }
+]
+
+```
+
+```python
+http://127.0.0.1:8000/api/user/?nickname=2&is_hy1=fasle
+
+```
+![image](https://user-images.githubusercontent.com/63651422/118385802-3140cf00-b64d-11eb-96cd-71af6d2da6cc.png)
+
 
 ### 과제를 하면서 알게 된 내용
