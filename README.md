@@ -408,11 +408,17 @@ class ModelNameViewSet(viewsets.ModelViewSet):
 ```
 
 ### Filtering
-```
+```python
 filtering은, 어떤 query set에 대하여 원하는 옵션대로 필터를 걸어,
 해당 조건을 만족하는 특정 쿼리셋을 만들어내는 작업입니다.
 
 drf의 viewset에서 이러한 filtering을 쉽게 사용할 수 있도록 filterset이라는 속성을 제공합니다.
+
+from django_filters.rest_framework import DjangoFilterBackend
+
+class ItemViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+	filter_backends = [DjangoFilterBackend]
+	filterset_fileds = ['name',]
 ```
 
 ### 회고
