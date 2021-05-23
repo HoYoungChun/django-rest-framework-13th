@@ -344,3 +344,81 @@ http://127.0.0.1:8000/api/user/?nickname=2&is_hy1=fasle
 "http://127.0.0.1:8000/api/user/?is_hy1=false"와 같이 접속했을 때 def filter_is_hy1(self, queryset, name, value):에서 parameter로 name=is_hy1, value=false가 들어갔습니다. 이를 통해 좀더 다채로운 처리가 가능할거 같고, lookup_expr의 다양한 조건을 알아두면 프로젝트할 때 도움이 많이 될 것 같습니다.
 
 from django.db.models import Q를 통해 Q객체를 써서 복잡한 질의문을 처리할 수 있어서, 이를 통해 원하는 질의문을 편하게 작성할 수 있었습니다.
+
+
+## Sum-up
+### 모델링
+```
+ERD를 짤 때, 1:1, 1:N, N:M 관계를 깊이 생각해서 정확히 파악해야 하며,
+N:M의 경우 django에서 ManyToManyField를 사용해도 되지만, N:1,1:M으로 중계모델을 만들어줄 수 있습니다.
+또, 이때 ERD를 짜면서, 변수명을 정말 신중하게 정해야 합니다.
+```
+
+### Django ORM
+```python
+모델명.objects.all() #모든 객체 조회
+모델명.object.create(필드=필드값, ...) #해당 모델 객체 생성
+모델명.object.get(필드=필드값) #하나의 instance반환(없으면 에러발생)
+모델명.object.get_object_or_404(필드=필드값) #없을때 404예외처리
+모델명.object.filter(필드=필드값) #조건 만족하는 객체 필터링
+```
+
+### Serializer
+```python
+django rest framework는 클라이언트의 요청에 대해 JSON 문자열을 돌려줌으로써 소통하는데,
+이를 쉽게 가능하도록 해주는 것이 Serializer입니다.
+Serializer와 ModelSerializer가 있고, ModelSerializer를 상속했을 때, 더 간단해집니다.
+
+#serializers.py
+class SnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Snippet
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
+```
+
+### DRF API View
+```python
+FBV(함수 기반 뷰) vs CBV(클래스 기반 뷰)
+FBV: @api_view 데코레이터를 사용합니다.
+CBV: APIView를 상속합니다.
+
+@api_view(['GET'])
+def group_list(request):
+	if request.method == 'GET':
+		return Response({"message":"group list"})
+
+class GroupList(APIView):
+	def get(self, request, format=None):
+		pass
+
+	def post(self, request, format=None):
+		pass
+```
+
+### ViewSet
+```python
+APIView ---패턴화---> Generic Views ---구조화---> Viewsets
+ModelViewSet은 기본적으로 Retrieve, List, Create, Destroy, Update의 뷰를 제공합니다.
+
+from rest_framework import viewsets
+
+class ModelNameViewSet(viewsets.ModelViewSet):
+	serializer_class = ModelNameSerializer
+	queryset = ModelName.objects.all()
+```
+
+### Filtering
+```
+filtering은, 어떤 query set에 대하여 원하는 옵션대로 필터를 걸어,
+해당 조건을 만족하는 특정 쿼리셋을 만들어내는 작업입니다.
+
+drf의 viewset에서 이러한 filtering을 쉽게 사용할 수 있도록 filterset이라는 속성을 제공합니다.
+```
+
+### 배포
+
+### 회고
+django를 해봤지만, drf를 사용해본 적이 없었는데, 이번 백엔드 스터디를 통해 RESTful api에 대해 이해할 수 있게 되었습니다.<br>
+이후에 drf를 조금 더 깊게 공부한 뒤에 다른 framework들도 경험해보고 싶어졌고,<br>
+특히 Spring framework를 공부하고 싶어서, 같이 공부하실 분 있으면 스터디하고 싶어요ㅎㅎ<br>
+또, 언제든 뜻이 맞다면 사이드프로젝트를 백엔드분들과 같이 진행해보고 싶습니다~!
